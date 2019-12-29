@@ -1,4 +1,4 @@
-#Fork from Fantasy Map Generator
+# Fork from Fantasy Map Generator
 This is a fork and modification from fantasy map generator by Azgaar's, added the quests menu and random events generator.
 
 
