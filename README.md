@@ -1,6 +1,12 @@
+#Fork from Fantasy Map Generator
+This is a fork and modification from fantasy map generator by Azgaar's, added the quests menu and random events generator.
+
+
+
 # Fantasy Map Generator
 
-Azgaar's _Fantasy Map Generator_. Online tool generating interactive and highly customizable svg maps based on voronoi diagram.
+A, added the quests menu and random events generator.
+zgaar's _Fantasy Map Generator_. Online tool generating interactive and highly customizable svg maps based on voronoi diagram.
 
 Project is under development, check out the current version [here](https://azgaar.github.io/Fantasy-Map-Generator). You can also try an Electron desktop application - download [an archive](https://github.com/Azgaar/Fantasy-Map-Generator/releases) for your architecture, unzip and run the _Azgaar's Fantasy Map Generator.exe_.
 
