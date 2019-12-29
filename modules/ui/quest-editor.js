@@ -15,25 +15,15 @@ function editQuests() {
 
   const cardTitle = document.getElementById('cardtitle')
   const cardText = document.getElementById('cardtext')
-  
-  const startCity = document.getElementById('startCity')
-  const finishCity = document.getElementById('destination')
-  const kingdom = document.getElementById('kingdom')
-  const questTypes = document.getElementById("QuestType")
+    
+  const kingdom = document.getElementById('kingdom') 
   const location = document.getElementById("location")
   
-  kingdom.addEventListener('click', (e) => {
-      if (kingdom.value !== 'none') {
-          finishCity.disabled = true
-          finishCity.selectedIndex = 0
-      } else {
-          finishCity.disabled = false
-      }
-  })
+ 
   
   
   function btnClick() {
-      let q = generateQuest()
+      let q = getObjective()
       cardTitle.innerHTML = q[0]
       cardText.innerHTML = q[1]
       
@@ -64,8 +54,8 @@ function editQuests() {
       markers
         .append("use")
         .attr("id", id)
-        .attr("xlink:href", "#marker0")
-        .attr("data-id", "#marker0")
+        .attr("xlink:href", "#marker_Exclamation")
+        .attr("data-id", "#marker_Exclamation")
         .attr("data-x", x)
         .attr("data-y", y)
         .attr("x", x - 15)        
@@ -93,68 +83,10 @@ function editQuests() {
   }
   
   
-  function generateQuest() {
-    
-      let a = Object,
-          b = Object
-  
-      let org = startCity.value
-      let destinat = finishCity.value
-      let king = kingdom.value
-  
-      if (!org.includes("none") && !destinat.includes('none')) {
-          a = randomBurg(org, x => x.name === org)
-          filter(king)
-          b = randomBurg(destinat, x => x.name === destinat)
-      }
-      if (!org.includes("none") && destinat.includes('none')) {
-          a = randomBurg(org, x => x.name === org)
-          filter(king)
-          b = randomBurg(null, x => x.population > 0)
-      }
-  
-      if (org.includes("none") && destinat.includes('none')) {
-          filter(king)
-          a = randomBurg(null, x => x.population > 0)
-          b = randomBurg(null, x => x.population > 0)
-      }
-  
-      let title = `${a.name} ${b.name}`
-      let content = getObjective(a, b)
-  
-      return [title, content, a,b]
-  }
-  
-  function getObjective(origem, destino) {
-      let objetivo = randomEl(texts.inicial)
-      let empregador = randomEl(quests.Empregador)
-      let contrato = quests.TipoDeContrato
-          .filter(x => x.dropdown === questTypes.value, questTypes.value)[0].texto
-          .replace("$", randomEl(quests.Contrato[questTypes.value]))
-      let alvo = randomEl(quests.Alvo)
-      if (alvo.includes("$")) {
-          choice = Array()
-          if (destino.Temple !== '') {
-              choice.push(`Templo de ${destino.name}`)
-          } else if (destino.Port !== '') {
-              choice.push(`Porto de ${destino.name}`)
-          } else if (burgs[1]["Shanty Town"] !== '') {
-              choice.push(`Favela de ${destino.name}`)
-          } else if (destino.Plaza !== '') {
-              choice.push(`Mercado de ${destino.name}`)
-          }
-          alvo = randomEl(choice)
-      }
-  
-      let ameaca = randomEl(quests.Ameaca)
-      let recompensa = randomEl(quests.Recompensas)
-
-
-
-
-
-
  
+  function getObjective( ) {
+    let objetivo = randomEl(texts.inicial)
+
       let Local = location.value == 'none'? randomEl(quests.Local):location.value
       let LocalDescricao = randomEl(quests.LocalDescricao[Local])
 
@@ -162,30 +94,24 @@ function editQuests() {
       let ObjetivosDescricao = randomEl(quests.ObjetivosDescricao[Objetivos]) 
     
       let state = kingdom.value
-      let monstrosTexto="", complicacaoTexto =""
-      if(notes.filter(x=>x.name===state, state)[0] ){
-        let legend = notes.filter(x=>x.name===state, state)[0].legend 
-        monstrosTexto =    randomEl(legend.split("Monstros: ")[1].split('\n')[0].split(",") ) 
-        complicacaoTexto = randomEl(legend.split("Complicacoes: ")[1].split('\n')[0].split(",") )
-      }
-      objetivo = objetivo
-          .replace("$origem$", origem ? origem.name : "")
-          .replace("$destino$", destino ? destino.name : "")
-          .replace("$empregador$", empregador)
-          .replace("$TipoDeContrato$", contrato)
-          .replace("$local$", alvo)
-          .replace("$ameaca$", ameaca)
-          .replace("$recompensa$", recompensa)
-
-          .replace("$Objetivos$", Objetivos.includes('/')? randomEl(Objetivos.split('/')):Objetivos)
+      let monstrosTexto="", complicacaoTexto ="" 
+      if(!state.includes('none'))
+        if(!notes.filter(x=>x.name===state, state)[0] ){
+          let legend = notes.filter(x=>x.name===state, state)[0].legend 
+          monstrosTexto =    randomEl(legend.split("Monstros: ")[1].split('\n')[0].split(",") ) 
+          complicacaoTexto = randomEl(legend.split("Complicacoes: ")[1].split('\n')[0].split(",") )
+        }
+        let currentObjective = Objetivos.includes('/')? randomEl(Objetivos.split('/')):Objetivos
+      objetivo = objetivo          
+          .replace("$Objetivos$",currentObjective )
           .replace("$ObjetivosDescricao$", ObjetivosDescricao)
           .replace("$Local$", Local)
           .replace("$LocalDescricao$",LocalDescricao) 
           .replace("$Complicacoes$", complicacaoTexto)  
           .replace('$Monstros$', monstrosTexto)
-  
-      return objetivo
-  
+        
+    title = `${currentObjective} ${LocalDescricao}` 
+      return [title, objetivo ]
   }
  
 
@@ -219,10 +145,7 @@ function editQuests() {
 
   let states = [...new Set(pack.states.map(x => x.name))];
 
-  kingdom.innerHTML = "<option value='none'>Reinos</option>";
-  questTypes.innerHTML = "";
-  startCity.innerHTML = " <option value='none'>Cidade Inicial</option>";
-  finishCity.innerHTML = "<option value='none'>Cidade Final</option>"; 
+  kingdom.innerHTML = "<option value='none'>Reinos</option>";   
 
   quests.Local.forEach(el => {
     location.options.add(new Option(el,el));
@@ -233,131 +156,7 @@ function editQuests() {
       kingdom.options.add(new Option(el,el));
       // .innerHTML += `<option>${el}</option>`
   })
-  
-  quests.TipoDeContrato.forEach(el => {
-    questTypes.options.add(new Option(el.dropdown,el.dropdown));
-      // questTypes.innerHTML += `<option>${el.dropdown}</option>`
-  }) 
-  burgs.forEach(el => {
-    
-      startCity.options.add(new Option(el.name,el.name));
-      finishCity.options.add(new Option(el.name,el.name));
-      // startCity.innerHTML += `<option value='${el.name}'>${el.name}</option>`
-      // finishCity.innerHTML += `<option value='${el.name}'>${el.name}</option>`
-  }) 
     
 
 }
 
-texts= {
-  inicial:[
-'  $Objetivos$ , $ObjetivosDescricao$ , $Local$ , $LocalDescricao$ , $Complicacoes$ ,    $Monstros$, ------------------ $origem$ $destino$ $empregador$ $TipoDeContrato$ $local$ $ameaca$ $recompensa$'
-  ]}
-
-quests = {
-
-
-    Local:['Cidade', 'Vila', 'Ruina', "Masmorra", "Regiao isolada"],
-    LocalDescricao:{"Cidade":['No templo local','no Castelo do lord', 'na sede de uma guilda', 'na casa de um nobre','no subterraneo'],
-     "Vila":['abandonada', 'pegando fogo', 'com sinos tocando', 'com pessoas gritando', 'pobre', 'amaldicoada', 'afetada pela peste'], 
-     "Ruina":['de uma cidade antiga', 'da torre de um feiticeiro', 'de um forte', 'de uma tumba','de um pequno vilarejo', 'de um templo'], 
-     "Masmorra":['antiga', 'abandonada', 'elfica', 'anã', 'sangrenta', 'fedorenta', 'toxica', 'soterrada', 'deslumbrate', 'submersa'],
-     "Regiao isolada":['de um vale proibido', 'de um templo antigo', 'contendo um forte','com uma torre', 'com um acampamento']
-    },
-
-
-    Objetivos:['ATACAR/MATAR/DESTRUIR', 'encontrar/recuperar', 'roubar/sequestrar', 'proteger', 'explorar/descobrir', 'sobreviver/escapar'],
-    ObjetivosDescricao:{'ATACAR/MATAR/DESTRUIR':['uma pessoa importante', 'uma organizacao', 'uma comunidade', 'um artefato', 'uma criatura','um local'],
-    'encontrar/recuperar':['uma pessoa desaparecida', 'uma pessoa sequestrada', 'um objeto perdido', 'um objeto roubado',' uma criatura rara', 'uma planta rara'],
-    'roubar/sequestrar':['uma obra de arte', 'um item magico','um grimorio', 'uma pessoa importante', 'uma criatura poderosa', 'um mapa ou pergaminho com informacoes importantes'],
-    'proteger':['uma comunidade','um local','um mercador', 'um objeto importante', 'uma caravana', 'uma organizacao' ],
-    'explorar/descobrir':['uma nova rota ou caminho', 'uma ilha exotica', 'uma ruina', 'as catacumbas de uma cidade', 'um novo feitico sinistro', 'o paredeiro de um objeto poderoso'],
-    'sobreviver/escapar':['de uma prisao', 'da caçada por uma guilda de assasinos', 'da furia de um feiticeiro', 'de um desastre natural', 'da acusacao de um crime nao cometido']},
-
-    
-
-
-
-
-    Pessoas:{
-        Amigos:['amigo', 'irmao', 'pai'],
-        Inimigos:['rei', 'traficante rival', 'concorrente'],
-        Militar:['General','Tenente','Lider']
-    },
-    Contrato:{
-        "Proteger":['um charlatao'],
-        "Adquirir informação":[],
-        "Eliminar":['alguma coisa', 'outra coisa'],
-        "Roubo":[],
-        "Resgate de uma ou mais pessoas":[],
-        "Comprar/Vender":[],
-        "Capturar":[],
-        "Esconder":[],
-        "Recuperar":[],
-        "Invasão":[],
-    },
-    Empregador: [
-        "Uma I.A.",
-        "Uma banda de Rock",
-        "Um hacker",
-        "Um Membro do governo",
-        "O Grupo Paramilitar",
-        "Um jornalista",
-        "Uma Gangue",
-        "Um Detetive",
-        "O CEO de uma mega Corporação",
-        "Um Presidiário"
-    ],
-    // $=Amigos, %=Inimigos, &=Militar
-    TipoDeContrato: [
-        {dropdown: "Proteger", texto: "proteger $"},
-        {dropdown: "Adquirir informação", texto: "Recolher intel"},
-        {dropdown: "Eliminar", texto: "eliminar $"},
-        {dropdown: "Roubo", texto: "roubar $"},
-        {dropdown: "Resgate de uma ou mais pessoas", texto: "resgatar um amigo"},
-        {dropdown: "Comprar/Vender", texto: "comprar e vender"},
-        {dropdown: "Capturar", texto: "capturar $"},
-        {dropdown: "Esconder", texto: "esconder $"},
-        {dropdown: "Recuperar um item físico", texto: "recuparar uma reliquia"},
-        {dropdown: "Invasão", texto: "invadir $"} 
-    ],
-    Alvo: [
-        "$",
-        "Nas ruas",
-        "QG de uma Mega Corporação",
-        "uma rede de esgotos",
-        "um clube",
-        "uma fábrica",
-        "um local público",
-        "um ambiente urbano",
-        "uma Estação espacial",
-        "um Centro de pesquisa",
-        "uma Entidade governamental"
-    ],
-    Ameaca: [
-        "Uma I.A. de nova geração",
-        "Uma gangue de cybermotociclistas",
-        "Drones patrulheiros",
-        "Assassino de aluguel",
-        "Militar com grande experiência de campo",
-        "um CEO de uma megacorp",
-        "Uma ameaça biotecnológica",
-        "Cybermutante fruto de engenharia genética",
-        "O líder de um país com políticas rivais a nação do jogo",
-        "Anarquista que deseja reformar o mundo"
-    ],
-    complicacao:{"humandor":[], 'elferin':[]},
-    Recompensas: [ 
-        "Informação sigilosa",
-        "Um item específico de alta tecnologia",
-        "A planta de um local altamente vigiado",
-        "Dinheiro",
-        "Armamento",
-        "Um estabelecimento",
-        "Aliado poderoso",
-        "Reputação",
-        "Traição",
-        "Morte"
-    ]
-
-}

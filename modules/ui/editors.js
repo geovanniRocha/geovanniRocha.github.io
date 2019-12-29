@@ -580,3 +580,5 @@ function highlightElement(element) {
   if (tr[1]) y += tr[1];
   if (scale >= 2) zoomTo(x, y, scale, 1600);
 }
+
+loadMarkers()

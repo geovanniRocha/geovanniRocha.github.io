@@ -15,6 +15,7 @@ if (rn(localStorage.getItem("version"), 2) !== rn(version, 2)) {
   localStorage.clear();
   setTimeout(showWelcomeMessage, 8000);
 }
+ 
 
 // append svg layers (in default order)
 let svg = d3.select("#map");
@@ -113,6 +114,7 @@ const lineGen = d3.line().curve(d3.curveBasis); // d3 line generator with defaul
 // d3 zoom behavior
 let scale = 1, viewX = 0, viewY = 0;
 const zoom = d3.zoom().scaleExtent([1, 20]).on("zoom", zoomed);
+ 
 
 applyStoredOptions();
 let graphWidth = +mapWidthInput.value, graphHeight = +mapHeightInput.value; // voronoi graph extention, cannot be changed arter generation
@@ -476,8 +478,9 @@ void function addDragToUpload() {
   });
 }()
 
+
 function generate() {
-  try {
+  try { 
     const timeStart = performance.now();
     invokeActiveZooming();
     generateSeed();
@@ -524,6 +527,8 @@ function generate() {
     console.warn(`TOTAL: ${rn((performance.now()-timeStart)/1000,2)}s`);
     showStatistics();
     console.groupEnd("Generated Map " + seed);
+
+
   }
   catch(error) {
     console.error(error);
@@ -1805,3 +1810,5 @@ function undraw() {
   notes = [];
   unfog();
 }
+
+loadMarkers()
