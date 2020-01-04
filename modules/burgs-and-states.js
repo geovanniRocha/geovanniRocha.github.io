@@ -136,7 +136,6 @@
     }
   }
 
-  // define burg coordinates and define details
   const specifyBurgs = function() {
     console.time("specifyBurgs");
     const cells = pack.cells, vertices = pack.vertices;
@@ -144,6 +143,7 @@
     for (const b of pack.burgs) {
       if (!b.i) continue;
       const i = b.cell;
+      b.tag="asd"
 
       // asign port status: capital with any harbor and towns with good harbors
       const port = (b.capital && cells.harbor[i]) || cells.harbor[i] === 1;
@@ -183,8 +183,10 @@
     console.timeEnd("specifyBurgs");
   }
 
+  //TODO: VER SE DA PARA COLOCAR NOVAS TAGS AQUI
   const defineBurgFeatures = function() {
     pack.burgs.filter(b => b.i && !b.removed).forEach(b => {
+      b.tags="asd"
       const pop = b.population;
       b.citadel = b.capital || pop > 50 && P(.75) || P(.5) ? 1 : 0;
       b.plaza = pop > 50 || pop > 30 && P(.75) || pop > 10 && P(.5) || P(.25) ? 1 : 0;
