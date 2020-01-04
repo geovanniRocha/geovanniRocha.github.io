@@ -2993,14 +2993,18 @@
     <div id='questsEditor' class="dialog stable textual" style="display: none">
       <h1> Filtros</h1>
  
-      <div style='display: flex; justify-content: space-evenly;'>
-        <select id='kingdom' class="form-control customDropdown" >
-          <option value='none'>Reinos</option>
+      <div style='display: flex; justify-content: end; margin-bottom:1rem;'>
+        <select id='kingdom' class="form-control customDropdown" style="margin-right: 1rem;" >
+          <option value='none'>Reinos Aleatorios</option>
         </select>
 
-        <select id='location' class="form-control customDropdown" >
+        <select id='location' class="form-control customDropdown"  style="margin-right: 1rem;" >
           <option value='none'>Local Aleatorio</option>
         </select>
+        
+        <input type="checkbox" id="onlyBurg" name="onlyBurg" checked style="display:block;">
+        <label for="onlyBurg">Somente cidades</label>
+        
       </div>
 
       <button type="button" class="mt-3 btn btn-primary" id="generateQuest">Gerar quest</button>

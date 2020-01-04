@@ -1,8 +1,8 @@
  
-function editQuests() {
- 
-  burgs = pack.burgs.filter(b => b.i && !b.removed)
-  
+let burgs = pack.burgs.filter(b => b.i && !b.removed)
+let states = [...new Set(pack.states.filter(x=>!x.removed).map(x => x.name))];
+
+function editQuests() {  
   $("#questsEditor").dialog({
     title: "Quest Editor", minWidth: "40em", minHeight:'40rem',
     position: {my: "center", at: "center", of: 'svg' }
@@ -18,34 +18,42 @@ function editQuests() {
     
   const kingdom = document.getElementById('kingdom') 
   const location = document.getElementById("location")
+  const onlyBurg = document.getElementById("onlyBurg")
   
- 
+ onlyBurg.onchange = (e)=>{
+   kingdom.disabled = onlyBurg.checked
+ }
   
   
   function btnClick() {
-      let q = getObjective()
+    
+      let loc = getPossibleLocation()
+      let q = getObjective(loc[2])
       cardTitle.innerHTML = q[0]
       cardText.innerHTML = q[1]
       
-      let loc = getPossibleLocation()
       
       addQuestMarker(q[0], q[1], loc[0], loc[1])
 
 
   } 
   function getPossibleLocation() {
-
-    let x=0, y=0;
-        state = kingdom.value
+    burg = Object
+    if(!onlyBurg.checked){
+       
+     burg = pack.cells.p[randomEl(pack.cells.h.filter(h=>h>20))]
+     burg.x = burg[0]
+     burg.y = burg[1]
+    } else{
+      state = kingdom.value
+      if(!state.includes("none")){
         stateId = pack.states.filter(x=>x.name===state, state)[0].i
-        burg = randomEl(pack.burgs.filter(x=>x.state===stateId, stateId))
-        debugger
-        // let questPosibles = Array.from(cells.i).filter(i => cells.pop[i] > 2 && cells.h[i] < 50 && cells.h[i] > 25);
-        // const cell = questPosibles.splice(Math.floor(Math.random() * questPosibles.length), 1);
-        // x = pack.cells.p[cell][0]
-        // y = pack.cells.p[cell][1];
-    
-    return [burg.x,burg.y]
+        burg = randomEl(burgs.filter(x=>x.state===stateId, stateId))     
+      }else{
+        burg = randomEl(burgs)
+      }
+    }
+    return [burg.x,burg.y, burg]
   }
 
   function addQuestMarker(title, text, x, y) {
@@ -84,77 +92,62 @@ function editQuests() {
   
   
  
-  function getObjective( ) {
-    let objetivo = randomEl(texts.inicial)
+  function getObjective(burg) {
+
+
+    
+      let objetivo = randomEl(texts.inicial)
 
       let Local = location.value == 'none'? randomEl(quests.Local):location.value
       let LocalDescricao = randomEl(quests.LocalDescricao[Local])
 
-      let Objetivos = randomEl(quests.Objetivos)
-      let ObjetivosDescricao = randomEl(quests.ObjetivosDescricao[Objetivos]) 
-    
-      let state = kingdom.value
-      let monstrosTexto="", complicacaoTexto ="" 
-      if(!state.includes('none'))
-        if(!notes.filter(x=>x.name===state, state)[0] ){
-          let legend = notes.filter(x=>x.name===state, state)[0].legend 
-          monstrosTexto =    randomEl(legend.split("Monstros: ")[1].split('\n')[0].split(",") ) 
-          complicacaoTexto = randomEl(legend.split("Complicacoes: ")[1].split('\n')[0].split(",") )
-        }
-        let currentObjective = Objetivos.includes('/')? randomEl(Objetivos.split('/')):Objetivos
+      let Empregador = randomEl(quests.Empregador) 
+      let Objetivo = randomEl(quests.Objetivo) 
+      let Alvo = randomEl(quests.Alvo) 
+      let Verbo = randomEl(quests.Verbo)  
+     
+      debugger
       objetivo = objetivo          
-          .replace("$Objetivos$",currentObjective )
-          .replace("$ObjetivosDescricao$", ObjetivosDescricao)
+          .replace("$Objetivo$",Objetivo ) 
           .replace("$Local$", Local)
           .replace("$LocalDescricao$",LocalDescricao) 
-          .replace("$Complicacoes$", complicacaoTexto)  
-          .replace('$Monstros$', monstrosTexto)
-        
-    title = `${currentObjective} ${LocalDescricao}` 
+          .replace("$Alvo$", Alvo)  
+          .replace('$Verbo$', Verbo)
+          .replace('$Empregador$', Empregador)
+      objetivo = `${objetivo.charAt(0).toUpperCase()}${objetivo.slice(1).toLowerCase()}`
+          
+      title = ` asd` 
       return [title, objetivo ]
+
+
+      choice = Array()
+      if (burg.Temple !== '') {
+          choice.push(`Templo de ${destino.name}`)
+      } else if (destino.Port !== '') {
+          choice.push(`Porto de ${destino.name}`)
+      } else if (burgs[1]["Shanty Town"] !== '') {
+          choice.push(`Favela de ${destino.name}`)
+      } else if (destino.Plaza !== '') {
+          choice.push(`Mercado de ${destino.name}`)
+      }
   }
  
 
 
   
-  function filter(king) {
-      if (!king.includes('none')) {
-          burgs = burgs.filter(x => pack.states[x.state] === king, king)
-      } else {
-          burgs =  pack.burgs.filter(b => b.i && !b.removed)
-      }
+  
+  function randomEl(items) {  
+      return items.length ? items[Math.floor(Math.random() * items.length)] : "";  
   }
-  
-  
-  function randomEl(items) {
-  
-      return items.length ? items[Math.floor(Math.random() * items.length)] : "";
-  
-  }
-  
-  //randomBurg(x=>x.Population < 1000)
-  function randomBurg(context, fx) {
-      return randomEl(burgs.filter(fx, context))
-  }
-  
-  function burgDist(burg1, burg2) {
-      return distance(burg1.Latitude, burg1.Longitude, burg2.Latitude, burg2.Longitude)
-  }
+
    
 
-
-  let states = [...new Set(pack.states.map(x => x.name))];
-
-  kingdom.innerHTML = "<option value='none'>Reinos</option>";   
-
   quests.Local.forEach(el => {
-    location.options.add(new Option(el,el));
-    // .innerHTML += `<option>${el}</option>`
+    location.options.add(new Option(el,el)); 
     })
 
   states.forEach(el => {
-      kingdom.options.add(new Option(el,el));
-      // .innerHTML += `<option>${el}</option>`
+      kingdom.options.add(new Option(el,el)); 
   })
     
 

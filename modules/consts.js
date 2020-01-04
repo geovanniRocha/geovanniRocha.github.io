@@ -199,32 +199,40 @@ let iconsTable = [
 
 texts = {
     inicial: [
-        '  $Objetivos$ , $ObjetivosDescricao$ , $Local$ , $LocalDescricao$ , $Complicacoes$ ,    $Monstros$'
+        'Um $Empregador$ esta solicitando ajuda para $Objetivo$ $Alvo$ que $Verbo$ uma $Local$ $LocalDescricao$',
+        'Devemos $Objetivo$ $Alvo$ em uma $Local$ $LocalDescricao$ para ajudar um $Empregador$',
+        'Em uma $Local$ $LocalDescricao$ existe $Alvo$ que voces devem $Objetivo$',
+        '$Verbo$ uma $Local$ $Alvo$, que esta causando problemas para o reino.',
+        'Em uma $Local$ existe um $Empregador$ ajudar a $Objetivo$ $Alvo$'
+
     ]
 }
 
 quests = {
 
 
-    Local: ['Cidade', 'Vila', 'Ruina', "Masmorra", "Regiao isolada"],
+    Empregador:['Nobre', 'Anciao', 'Sacerdote', 'Ladrao', 'Alquimista', 'Plebeu', 'Mago', "Soldado", 'Bruxo', 'Homem misterioso', 'Mercador', 'Espiao', 'Bardo', 'Taverneiro', 'Ferreiro', "Joalheiro", 'Puta'],
+    
+
+    Local: ['Cidade Grande', 'Vila', 'Ruina', "Masmorra", "Regiao isolada"],
     LocalDescricao: {
-        "Cidade": ['No templo local', 'no Castelo do lord', 'na sede de uma guilda', 'na casa de um nobre', 'no subterraneo'],
-        "Vila": ['abandonada', 'pegando fogo', 'com sinos tocando', 'com pessoas gritando', 'pobre', 'amaldicoada', 'afetada pela peste'],
-        "Ruina": ['de uma cidade antiga', 'da torre de um feiticeiro', 'de um forte', 'de uma tumba', 'de um pequno vilarejo', 'de um templo'],
-        "Masmorra": ['antiga', 'abandonada', 'elfica', 'anã', 'sangrenta', 'fedorenta', 'toxica', 'soterrada', 'deslumbrate', 'submersa'],
-        "Regiao isolada": ['de um vale proibido', 'de um templo antigo', 'contendo um forte', 'com uma torre', 'com um acampamento']
+        "Cidade Grande": ['No templo local', 'no Castelo', 'na sede de uma guilda', 'no distrito mais pobre', 'no subterraneo da cidade', 'no distrito dos mercados'],
+        "Vila": ['abandonada', 'pobre', 'destruida', 'protegida', 'amaldicoada', 'afetada por uma peste'],
+        "Ruina": ['de uma antiga cidade', 'da torre de um feiticeiro', 'de um antigo forte', 'de uma tumba', 'de um pequno vilarejo', 'de um templo', 'de um antigo monasterio', 'de um antigo castelo'],
+        "Masmorra": ['antiga', 'abandonada', 'elfica', 'anã', 'sangrenta', 'fedorenta', 'toxica', 'soterrada', 'deslumbrate', 'submersa', 'desconhecida', 'esquecida', 'lacrada', 'escura', 'ancestral'],
+        "Regiao isolada": ['do reino', 'de um vale proibido', 'por uma antiga magia', 'e desconhecida',  'contendo um forte', 'com uma torre', 'com um acampamento', 'e probida', 'por ser perigosa']
     },
 
 
-    Objetivos: ['ATACAR/MATAR/DESTRUIR', 'encontrar/recuperar', 'roubar/sequestrar', 'proteger', 'explorar/descobrir', 'sobreviver/escapar'],
-    ObjetivosDescricao: {
-        'ATACAR/MATAR/DESTRUIR': ['uma pessoa importante', 'uma organizacao', 'uma comunidade', 'um artefato', 'uma criatura', 'um local'],
-        'encontrar/recuperar': ['uma pessoa desaparecida', 'uma pessoa sequestrada', 'um objeto perdido', 'um objeto roubado', ' uma criatura rara', 'uma planta rara'],
-        'roubar/sequestrar': ['uma obra de arte', 'um item magico', 'um grimorio', 'uma pessoa importante', 'uma criatura poderosa', 'um mapa ou pergaminho com informacoes importantes'],
-        'proteger': ['uma comunidade', 'um local', 'um mercador', 'um objeto importante', 'uma caravana', 'uma organizacao'],
-        'explorar/descobrir': ['uma nova rota ou caminho', 'uma ilha exotica', 'uma ruina', 'as catacumbas de uma cidade', 'um novo feitico sinistro', 'o paredeiro de um objeto poderoso'],
-        'sobreviver/escapar': ['de uma prisao', 'da caçada por uma guilda de assasinos', 'da furia de um feiticeiro', 'de um desastre natural', 'da acusacao de um crime nao cometido']
-    },
+    Objetivo: ['Eliminar', 'Resgatar', 'Deter', 'Obter informacoes sobre', 'Encontrar', 'Escoltar', 'Proteger', 'Roubar', 'Sequestrar', 'Enganar'],
+
+    Alvo: ['Uma caravana', 'uma criatura misteriosa', 'um ser sobrenatural', 'um general', 'um artefato', 'um bando de criaturas', 'um vampiro', 'o rei', 'um documento',
+    //  'um nobre', 'um anciao', 'um sacerdote', 'um ladrao', 'um alqumista', 'um plebeu', 'um mago', 'um soldado','um bruxo', 'um homem misterioso', 'um mercador', 'um espiao', 'um bardo', 'um taverneiro', 'um ferreiro', 'um joalheiro',
+      'uma puta'],
+
+    Verbo:['esta escondido em', 'esta assolando', 'esta atacando', 'esta roubando', 'esta fugindo de', 'esta mantendo refens em', 'esta tocando o terror em', 'esta aterrorizando', 'esta saqueando', 'esta assombrando', 'esta causando problemas em', 'esta escondendo um objeto em', 'esta em posse de'],
+ 
+    
 
    
 }
