@@ -41,16 +41,16 @@ function editQuests() {
     burg = Object
     if(!onlyBurg.checked){
        
-     burg = pack.cells.p[randomEl(pack.cells.h.filter(h=>h>20))]
+     burg = pack.cells.p[pack.cells.h.filter(h=>h>20).random()]
      burg.x = burg[0]
      burg.y = burg[1]
     } else{
       state = kingdom.value
       if(!state.includes("none")){
         stateId = pack.states.filter(x=>x.name===state, state)[0].i
-        burg = randomEl(burgs.filter(x=>x.state===stateId, stateId))     
+        burg = burgs.filter(x=>x.state===stateId, stateId).random()
       }else{
-        burg = randomEl(burgs)
+        burg = burgs.random()
       }
     }
     return [burg.x,burg.y, burg]
@@ -96,15 +96,13 @@ function editQuests() {
 
 
     
-      let objetivo = randomEl(texts.inicial)
-
-      let Local = location.value == 'none'? randomEl(quests.Local):location.value
-      let LocalDescricao = randomEl(quests.LocalDescricao[Local])
-
-      let Empregador = randomEl(quests.Empregador) 
-      let Objetivo = randomEl(quests.Objetivo) 
-      let Alvo = randomEl(quests.Alvo) 
-      let Verbo = randomEl(quests.Verbo)  
+      let objetivo =  texts.inicial.random()
+      let Local = location.value == 'none'?  quests.Local.random():location.value
+      let LocalDescricao =  quests.LocalDescricao[Local].random()
+      let Empregador = quests.Empregador.random()
+      let Objetivo = quests.Objetivo.random() 
+      let Alvo = quests.Alvo.random()
+      let Verbo = quests.Verbo.random()
      
       debugger
       objetivo = objetivo          
@@ -114,31 +112,14 @@ function editQuests() {
           .replace("$Alvo$", Alvo)  
           .replace('$Verbo$', Verbo)
           .replace('$Empregador$', Empregador)
-      objetivo = `${objetivo.charAt(0).toUpperCase()}${objetivo.slice(1).toLowerCase()}`
-          
-      title = ` asd` 
+          .captilize() 
+      let Monstro = monsters.filter(x=>x.challenge_rating === 0.25).filter(x=>!x.name.includes('Giant')).shuffle().limit(1)[0]
+      title = `${Monstro.name} ataca ${Local}` 
       return [title, objetivo ]
-
-
-      choice = Array()
-      if (burg.Temple !== '') {
-          choice.push(`Templo de ${destino.name}`)
-      } else if (destino.Port !== '') {
-          choice.push(`Porto de ${destino.name}`)
-      } else if (burgs[1]["Shanty Town"] !== '') {
-          choice.push(`Favela de ${destino.name}`)
-      } else if (destino.Plaza !== '') {
-          choice.push(`Mercado de ${destino.name}`)
-      }
+      
   }
  
 
-
-  
-  
-  function randomEl(items) {  
-      return items.length ? items[Math.floor(Math.random() * items.length)] : "";  
-  }
 
    
 
