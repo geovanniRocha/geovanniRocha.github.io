@@ -1,0 +1,26 @@
+{
+  "name": "pixijs",
+  "version": "1.0.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server dist/ --cors -c-1 ",
+    "watch": "nodemon",
+    "build": "webpack --config webpack.config.js --watch"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "http-server": "^14.1.1",
+    "nodemon": "^2.0.22",
+    "pixi.js": "^7.2.4"
+  },
+  "devDependencies": {
+    "nodemon-webpack-plugin": "^4.8.1",
+    "source-map-loader": "^4.0.1",
+    "webpack": "^5.85.1",
+    "webpack-cli": "^5.1.3"
+  }
+}
