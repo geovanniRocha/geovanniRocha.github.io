@@ -6,14 +6,14 @@
     <link rel="stylesheet" href="style.css">
 
 
-    <script src="pixi.js"></script>
+    <script src="src/libs/pixi.js"></script>
 
     
-    <script src="Commons/GameController.js"></script>
-    <script src="Commons/Tank.js"></script> 
+    <script src="src/Commons/GameController.js"></script>
+    <script src="src/Commons/Tank.js"></script> 
     
 
-    <script src="Helpers/keyboard.js"></script>
+    <script src="src/Helpers/keyboard.js"></script>
     
 
 
@@ -29,6 +29,11 @@
 
       <div class="row">
         <button type="button" id="validate" class="btn btn-primary">Primary</button>
+        <button type="button" onclick="console.log(gameController)" class="btn btn-primary">log</button>
+        <button type="button" onclick="gameController.loadTanks()" class="btn btn-primary">load tanks</button>
+        <button type="button" onclick="new Tank('')" class="btn btn-primary">new tank</button>
+        <button type="button"  class="btn btn-primary">Primary</button>
+        <button type="button"  class="btn btn-primary">Primary</button>
         <p>Hotkey: R to simulate</p>
       </div>
     </div>
@@ -36,7 +41,7 @@
     
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 
-    <script src="index.js"></script>
+    <script src="src/index.js"></script>
   </body>
 </html>
 
