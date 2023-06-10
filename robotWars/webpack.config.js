@@ -8,9 +8,6 @@ module.exports = {
     filename: 'main.js',
     path: path.resolve(__dirname, 'dist'),
   },
-  // plugins: [
-  //   new NodemonPlugin(), 
-  // ],
   watch: true,
   watchOptions: {
     poll: 1000,
