@@ -1,13 +1,17 @@
 class GameController {
+
+  tickRate = 15
+  tick = 0
+  tanks = []
+  direction = 5
+
   constructor() {
     if (!GameController.instance) {
       GameController.instance = this;
     }
-
     return GameController.instance;
   }
 
-  tanks = []
   registerTank(tank){
     this.tanks.push(tank)    
   }
@@ -21,8 +25,11 @@ class GameController {
   stepSimulation(){
     for (const tank of  this.tanks) {
         tank.update()
+        tank.bounds()
     }
   }    
+
+
 }
 
 

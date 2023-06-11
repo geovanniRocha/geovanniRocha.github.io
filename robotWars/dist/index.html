@@ -14,6 +14,7 @@
     
 
     <script src="src/Helpers/keyboard.js"></script>
+    <script src="src/Helpers/logger.js"></script>
     
 
 
@@ -29,13 +30,20 @@
 
       <div class="row">
         <button type="button" id="validate" class="btn btn-primary">Primary</button>
-        <button type="button" onclick="console.log(gameController)" class="btn btn-primary">log</button>
+        <button type="button" onclick="Logger.debug(gameController)" class="btn btn-primary">log</button>
         <button type="button" onclick="gameController.loadTanks()" class="btn btn-primary">load tanks</button>
         <button type="button" onclick="new Tank('')" class="btn btn-primary">new tank</button>
         <button type="button"  class="btn btn-primary">Primary</button>
         <button type="button"  class="btn btn-primary">Primary</button>
-        <p>Hotkey: R to simulate</p>
       </div>
+
+      <div class="row">
+        <label for="customRange2" class="form-label">Speed</label>
+        <input type="range" class="form-range" min="0" max="10" id="customRange2">
+        <p for="customRange2"  class="form-label" id="rangeValue"></p>
+      </div>
+
+        <p>Hotkey: R to simulate</p> 
     </div>
     
     
