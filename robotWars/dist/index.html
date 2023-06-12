@@ -15,6 +15,7 @@
 
     <script src="src/Helpers/keyboard.js"></script>
     <script src="src/Helpers/logger.js"></script>
+    <script src="src/Helpers/Debbuger.js"></script>
     
 
 
@@ -30,8 +31,8 @@
 
       <div class="row">
         <button type="button" id="validate" class="btn btn-primary">Primary</button>
-        <button type="button" onclick="Logger.debug(gameController)" class="btn btn-primary">log</button>
-        <button type="button" onclick="gameController.loadTanks()" class="btn btn-primary">load tanks</button>
+        <button type="button" onclick="Logger.debug(new GameController())" class="btn btn-primary">log</button>
+        <button type="button" onclick="new GameController().loadTanks()" class="btn btn-primary">load tanks</button>
         <button type="button" onclick="new Tank('')" class="btn btn-primary">new tank</button>
         <button type="button"  class="btn btn-primary">Primary</button>
         <button type="button"  class="btn btn-primary">Primary</button>

@@ -1,6 +1,6 @@
 Logger = {
-    enable:false,
-    level: 0,
+    enable:true,
+    level: 1,
     debug: function(log, ...args){
         if(this.enable && this.level <= 0){
             console.log(log, ...args)

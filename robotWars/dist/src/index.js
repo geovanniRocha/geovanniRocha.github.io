@@ -1,6 +1,5 @@
 let app = undefined
 const gameController = new GameController()
-tankBase = PIXI.Assets.load('../../img/tankbase.png').then
 
 
 app = new PIXI.Application();

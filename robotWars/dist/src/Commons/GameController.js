@@ -16,9 +16,9 @@ class GameController {
     this.tanks.push(tank)    
   }
 
-  async loadTanks(){
+  loadTanks(){
     for (const tank of this.tanks) {
-        await tank.load()
+        tank.load()
       }
   }
 

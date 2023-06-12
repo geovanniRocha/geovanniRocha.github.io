@@ -7,46 +7,47 @@ class Tank{
     if(!!!x) x = 300
     if(!!!y) y = 300
     this.name = name
-    this.texture = undefined
     this.sprite = undefined
+    this.texture = undefined
     this.x = x
     this.y = y
-    new GameController().registerTank(this)
     this.load() 
+    new GameController().registerTank(this)
     Logger.debug("new Tank:", name)
   }
     
   async load(){
-    if(!this.loaded){
-      Logger.debug("loaded:", this.name)
-      // this.texture = await PIXI.Assets.load('../../img/tankbase.png');
-      if(this.sprite == undefined)
-        this.sprite = new PIXI.Sprite(tankBase); 
-      this.sprite.anchor.x = 0.5;
-      this.sprite.anchor.y = 0.5;
-      app.stage.addChild(this.sprite);
-      this.sprite.y = this.x
-      this.sprite.x = this.y
-      this.loaded = true
-
+  
+    this.texture = await PIXI.Assets.load('../../img/tankbase.png')
+    
+      
+    if(this.sprite == undefined)
+      this.sprite = new PIXI.Sprite(this.texture); 
+    this.sprite.anchor.x = 0.5;
+    this.sprite.anchor.y = 0.5;
+    app.stage.addChild(this.sprite);
+    this.sprite.y = this.x
+    this.sprite.x = this.y
+    this.loaded = true 
+      
+      
     }
-  }
 
   bounds(){
-    let w = this.sprite.width/2
-    let h = this.sprite.width/2
-    if(this.sprite.x < w) this.sprite.x = w
-    if(this.sprite.y < h) this.sprite.y = h
-    if(this.sprite.x > app.screen.width- w) this.sprite.x = app.screen.width - w
-    if(this.sprite.y > app.screen.height- h) this.sprite.y = app.screen.height - h
+      let w = this.sprite.width/2
+      let h = this.sprite.width/2
+      if(this.sprite.x < w) this.sprite.x = w
+      if(this.sprite.y < h) this.sprite.y = h
+      if(this.sprite.x > app.screen.width- w) this.sprite.x = app.screen.width - w
+      if(this.sprite.y > app.screen.height- h) this.sprite.y = app.screen.height - h
+  
   }
 
   async update(){
     Logger.debug("runUpdate:", this.name)
     if(gameController.direction == 1){
       this.forward()
-      // this.rotate(1)
-
+      this.rotate(1) 
     }
     if(gameController.direction == 2)
       this.sprite.x -= 1.0
@@ -85,4 +86,9 @@ class Tank{
     return this.getPos()
   }
 
+  lookTo(x,y){
+    let rad = Math.atan2( y - this.sprite.y , x- this.sprite.x) 
+    Debbuger.drawLine(this.sprite.x,  this.sprite.y,x,y)
+    this.sprite.rotation = rad
+  }
 }
