@@ -4,6 +4,7 @@ class GameController {
   tick = 0
   tanks = []
   direction = 5
+  scene= undefined
 
   constructor() {
     if (!GameController.instance) {
