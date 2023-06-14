@@ -2,7 +2,7 @@ class GameController {
 
   tickRate = 15
   tick = 0
-  tanks = []
+  sprites = []
   direction = 5
   scene= undefined
 
@@ -13,22 +13,32 @@ class GameController {
     return GameController.instance;
   }
 
-  registerTank(tank){
-    this.tanks.push(tank)    
+  registerSprite(sprite){
+    this.sprites.push(sprite)    
   }
 
+
   loadTanks(){
-    for (const tank of this.tanks) {
-        tank.load()
+    for (const sprite of this.sprites) {
+      sprite.load()
       }
   }
 
   stepSimulation(){
-    for (const tank of  this.tanks) {
-        tank.update()
-        tank.bounds()
+    for (const sprite of  this.sprites) {
+      sprite.update()
+      this.bounds(sprite.sprite)
     }
   }    
+  bounds(sprite){
+    let w = sprite.width/2
+    let h = sprite.height/2
+    if(sprite.x < w) sprite.x = w
+    if(sprite.y < h) sprite.y = h
+    if(sprite.x > sceneConfig.width - w) sprite.x = sceneConfig.width - w
+    if(sprite.y > sceneConfig.height- h) sprite.y = sceneConfig.height - h
+
+}
 
 
 }

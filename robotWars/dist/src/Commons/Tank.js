@@ -1,61 +1,23 @@
 
 
-class Tank{
+class Tank extends GameObject{
 
   constructor(name, x, y){
-    this.loaded = false
-    if(!!!x) x = 300
-    if(!!!y) y = 300
-    this.name = name
-    this.x = x
-    this.y = y
-    new GameController().registerTank(this) 
-    this.sprite = gameController.scene.add.sprite(this.x, this.y, 'tankbase');    
+    super("tankBody", name, x,y) 
+    this.weapon = new Weapon(this, 3)
+    this.dir = 2 
+    
   }
 
-
-  bounds(){
-      let w = this.sprite.width/2
-      let h = this.sprite.height/2
-      if(this.sprite.x < w) this.sprite.x = w
-      if(this.sprite.y < h) this.sprite.y = h
-      if(this.sprite.x > sceneConfig.width - w) this.sprite.x = sceneConfig.width - w
-      if(this.sprite.y > sceneConfig.height- h) this.sprite.y = sceneConfig.height - h
- 
+  update(){  
+    if(this.sprite.x > 500)
+      this.dir = 1 
+    if(this.sprite.x < 100)
+      this.dir = 2
+    if(this.dir == 2)
+      this.forward()
+    if(this.dir == 1)
+      this.backward()      
   }
-
-  update(){    
-    this.forward()
-    this.rotate(0.1) 
-  }
-
-  getPos(){
-    return {x:this.sprite.x, y:this.sprite.y}
-  }
-
-  rotate(angle){
-    this.sprite.angle += angle
-  }
-
-  forward(length){
-    if(!!!length)
-      length = 1    
-    this.sprite.y += length * Math.sin(this.sprite.rotation)
-    this.sprite.x += length * Math.cos(this.sprite.rotation)
-    return this.getPos()
-  }
-
-  backward(length){  
-    if(!!!length)
-      length = 1     
-    this.sprite.y -= length * Math.sin(this.sprite.rotation)
-    this.sprite.x -= length * Math.cos(this.sprite.rotation)
-    return this.getPos()
-  }
-
-  lookTo(x,y){
-    let rad = Math.atan2( y - this.sprite.y , x- this.sprite.x) 
-    Debbuger.drawLine(this.sprite.x, this.sprite.y, x, y)
-    this.sprite.rotation = rad
-  }
+  
 }

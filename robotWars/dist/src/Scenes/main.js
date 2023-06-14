@@ -8,13 +8,17 @@ class BattleScene extends Phaser.Scene
 
     preload ()
     {
-        this.load.image('tankbase', '../../img/tankbase.png');
+        this.load.image('tankBody', '../../img/tankBody.png');
+        for (let i = 1; i <= 5; i++) {
+            this.load.image(`Barrel${i}`, `../../img/specialBarrel${i}_outline.png`);
+            
+        }
     }
 
     create ()
     {
         gameController.scene = this
-        gameController.tank = new Tank("tank one") 
+        gameController.tank = new Tank("tank one",300,300) 
     }
 
     update(){
