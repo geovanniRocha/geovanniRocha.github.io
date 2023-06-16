@@ -18,7 +18,18 @@ class BattleScene extends Phaser.Scene
     create ()
     {
         gameController.scene = this
+
         gameController.tank = new Tank("tank one") 
+        gc.tank.onUpdate = function(){
+            if(this.sprite.x > sceneConfig.width - 100)
+                this.dir = 1 
+            if(this.sprite.x < 100)
+                this.dir = 2
+            if(this.dir == 2)
+                this.forward(this.speed)
+            if(this.dir == 1)
+                this.backward(this.speed)  
+        }
     }
 
     update(){

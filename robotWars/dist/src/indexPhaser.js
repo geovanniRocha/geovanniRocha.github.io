@@ -15,5 +15,10 @@ const Vector2 = Phaser.Math.Vector2
 
 simumlate =  () => { new GameController().stepSimulation();} 
 keyboard("t").press = simumlate
-document.getElementById('validate').onclick = simumlate
+
+function evalCode(){
+    let code = document.getElementById("codeArea").value
+    eval(code)    
+    document.getElementById("codeArea").value = ""
+}
  
