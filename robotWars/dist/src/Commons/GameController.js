@@ -3,6 +3,7 @@ class GameController {
   tickRate = 15
   tick = 0
   sprites = []
+  colliders = []
   direction = 5
   scene= undefined
 
@@ -15,6 +16,10 @@ class GameController {
 
   registerSprite(sprite){
     this.sprites.push(sprite)    
+  }
+
+  registerCollider(collider){
+    this.colliders.push(collider)    
   }
 
   loadTanks(){
@@ -49,6 +54,8 @@ class GameController {
     return  new Vector2(0)
   }
 
+
+  
 
 }
 

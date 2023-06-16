@@ -4,7 +4,7 @@ const sceneConfig = {
     type: Phaser.AUTO,
     width: 1500,
     height: 1500,
-    zoom:0.6,
+    zoom:1,
     scene: BattleScene,
     parent: 'game-container',
 }
