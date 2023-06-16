@@ -18,7 +18,7 @@ class BattleScene extends Phaser.Scene
     create ()
     {
         gameController.scene = this
-        gameController.tank = new Tank("tank one",300,300) 
+        gameController.tank = new Tank("tank one") 
     }
 
     update(){
