@@ -4,6 +4,7 @@ class GameController {
   tick = 0
   sprites = []
   colliders = []
+  debugListener = []
   direction = 5
   scene= undefined
 

@@ -1,10 +1,11 @@
 class GameObject {     
 
     constructor(spriteName,name, x,y){        
-        new GameController().registerSprite(this) 
+        this.gameController = new GameController()
+        this.gameController.registerSprite(this) 
         this.name = name
         this.sprite = gameController.scene.add.sprite( gc.spawnPosition().x,gc.spawnPosition().y, spriteName);
-        this.colliderSize = (this.sprite.width + this.sprite.height) / 2
+      
     }
     
     getPosition(){
@@ -31,14 +32,42 @@ class GameObject {
 
     lookTo(x,y){
         let rad = Math.atan2( y - this.sprite.y , x- this.sprite.x) 
-        Debbuger.drawLine(this.x, this.y, x, y)
-        Debbuger.drawCircle(this.x, this.y, this.colliderSize)
         this.sprite.rotation = rad
     }
 
     distance(x,y){
         return this.getPosistion().distance(new Vector2(x,y))
     }
+
+
+    checkCollision(){
+        if(this.gameController.colliders.length > 0 ) {     
+            
+            for (const collider of  this.gameController.colliders) {
+                if(this.collider.id !== collider.id){
+                    let dist = this.collider.distance(collider.position)
+                    let colliding = this.collider.size/2 + collider.size/2
+                    if(!this.entered && dist < colliding) {
+                        this.onCollisionEnter(collider)
+                        this.entered = true
+                    }
+                    if(this.entered && dist > colliding)
+                    {
+                        this.onCollisionExit(collider)
+                        this.entered = false
+                    }
+                    if(this.entered && dist < colliding)
+                    {
+                        this.onCollisionStay(collider)
+                    }
+                }
+            }
+        }
+      }
+
+
+
+
 
     get x(){
         return this.sprite.x

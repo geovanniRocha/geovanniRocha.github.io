@@ -3,15 +3,31 @@
 class Tank extends GameObject{
 
   constructor(name){ 
+    
+    
     super("tankBody", name) 
+    this.debug = new Debug()
     this.weapon = new Weapon(this, 3)
     this.collider = new Collider(this)
-    this.dir = 2
-    this.speed = (Math.random()*4)+1 
-    this.onUpdate = ()=>{}
+    this.speed = 10
+    this.started = false
+    
+    this.onUpdate = ()=>{}    
+    this.onStart= ()=>{}
+    this.onCollisionStay = ()=>{}  
+    this.onCollisionEnter = ()=>{}  
+    this.onCollisionExit = ()=>{}  
   }
 
+
   update(){  
-    if(!!this.onUpdate) this.onUpdate(this)     
-  } 
+    if(!this.started){
+      this.onStart(this)
+      this.started = true
+    }
+    if(!!this.onUpdate) this.onUpdate(this)
+    this.debug.clear()
+    this.debug.drawCircle(this.x, this.y, this.collider.size/2)
+    this.checkCollision()
+  }
 }

@@ -4,12 +4,11 @@ const sceneConfig = {
     type: Phaser.AUTO,
     width: 1500,
     height: 1500,
-    zoom:1,
+    zoom:0.6,
     scene: BattleScene,
     parent: 'game-container',
 }
 const game = new Phaser.Game(sceneConfig);
-// gc.scene.scale.setZoom(0.3)
 const Vector2 = Phaser.Math.Vector2
 
 
