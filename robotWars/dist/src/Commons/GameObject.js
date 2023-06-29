@@ -1,12 +1,19 @@
 class GameObject {     
 
-    constructor(spriteName,name, x,y){        
+    constructor(spriteName,name, x,y,angle, automaticPosition=true){        
         this.gameController = new GameController()
         this.gameController.registerSprite(this) 
         this.name = name
-        this.sprite = gameController.scene.add.sprite( gc.spawnPosition().x,gc.spawnPosition().y, spriteName);
+        if(automaticPosition)
+            this.sprite = gameController.scene.add.sprite( gc.spawnPosition().x,gc.spawnPosition().y, spriteName);
+        else
+            this.sprite = gameController.scene.add.sprite( x,y, spriteName);
+        if(!!angle)
+            this.sprite.angle = angle
+        
       
     }
+ 
     
     getPosition(){
         return new Vector2(this.sprite.x,this.sprite.y)
@@ -33,10 +40,10 @@ class GameObject {
     lookTo(x,y){
         let rad = Math.atan2( y - this.sprite.y , x- this.sprite.x) 
         this.sprite.rotation = rad
-    }
+    }    
 
     distance(x,y){
-        return this.getPosistion().distance(new Vector2(x,y))
+        return this.getPosition().distance(new Vector2(x,y))
     }
 
 
@@ -63,7 +70,17 @@ class GameObject {
                 }
             }
         }
-      }
+    }
+
+    // Return: false if distance > episolon(destination not reached), true if reached destination
+    goto(x,y,episolon=0.01){
+        this.lookTo(x,y)
+        if(this.distance(x,y) > episolon){
+            this.forward()
+            return false
+        }
+        return true
+    }
 
 
 

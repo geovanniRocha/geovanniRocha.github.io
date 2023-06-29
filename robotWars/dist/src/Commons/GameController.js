@@ -18,6 +18,9 @@ class GameController {
   registerSprite(sprite){
     this.sprites.push(sprite)    
   }
+  removeSprite(id){ 
+    this.sprites = this.sprites.filter(x=>x.id!==id)
+  }
 
   registerCollider(collider){
     this.colliders.push(collider)    
@@ -32,7 +35,8 @@ class GameController {
   stepSimulation(){
     for (const sprite of  this.sprites) {
       sprite.update()
-      this.bounds(sprite.sprite)
+      if(sprite.constructor.name !== "Bullet")
+        this.bounds(sprite.sprite)
     }
   }
 

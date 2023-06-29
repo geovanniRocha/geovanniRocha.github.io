@@ -13,30 +13,16 @@ class BattleScene extends Phaser.Scene
             this.load.image(`Barrel${i}`, `../../img/specialBarrel${i}_outline.png`);
             
         }
+        for (let i = 1; i <= 3; i++) {
+            this.load.image(`Bullet${i}`, `../../img/bulletDark${i}_outline.png`);            
+        }
     }
 
-    newTank(name){
-        let myTank = new Tank(name) 
-        myTank.onStart = function(){
-            this.dir = 1
-        }
-        myTank.onUpdate = function(){
-            if(this.sprite.x > sceneConfig.width - 100)
-                this.dir = 1 
-            if(this.sprite.x < 100)
-                this.dir = 2
-            if(this.dir == 2)
-                this.forward(this.speed)
-            if(this.dir == 1)
-                this.backward(this.speed)  
-        }
-    }
+
 
     create ()
     {
-        gameController.scene = this
-        this.newTank("tank1")
-        this.newTank("tank2")       
+        gameController.scene = this    
     }
 
     update(){

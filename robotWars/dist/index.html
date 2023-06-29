@@ -13,14 +13,21 @@
     
     <script src="src/Commons/GameController.js"></script>
     <script src="src/Commons/GameObject.js"></script>
+    
+    <script src="src/Commons/Bullet.js"></script>
     <script src="src/Commons/Collider.js"></script>
     <script src="src/Commons/Tank.js"></script> 
-    <script src="src/Commons/Weapon.js"></script> 
+    <script src="src/Commons/Weapon.js"></script>  
     
 
+    <script src="src/Helpers/Utils.js"></script>
     <script src="src/Helpers/keyboard.js"></script>
     <script src="src/Helpers/logger.js"></script>
     <script src="src/Helpers/Debbuger.js"></script>
+    
+    <script src="src/Tanks/Random.js"></script>
+    <script src="src/Tanks/Square.js"></script>
+    <script src="src/Tanks/Null.js"></script>
     
 
 
@@ -41,7 +48,7 @@
 
       <div class="row">
         <label for="customRange2" class="form-label">Speed</label>
-        <input type="range" class="form-range" min="0" max="10" id="customRange2">
+        <input type="range" class="form-range" value="1" min="0" max="10" id="customRange2">
         <p for="customRange2"  class="form-label" id="rangeValue"></p>
       </div>
 

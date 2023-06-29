@@ -1,5 +1,6 @@
 const gameController = new GameController()
 const gc = new GameController()
+let canFire = true
 const sceneConfig = {
     type: Phaser.AUTO,
     width: 1500,
